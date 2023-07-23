@@ -40,9 +40,8 @@ def populate_database_from_api():
     try:
         response = requests.get(base_url, params=params)
 
-        # from pprint import pprint
-
-        print(response.__dict__)
+        # можно попринтить или нет, вкусовщина
+        # print(response.__dict__)
 
         response.raise_for_status()
         data = response.json()
