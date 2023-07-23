@@ -35,6 +35,10 @@ kill:
 fr:
 	flask run
 
+# гуникорном
+frg:
+	gunicorn -w 2 -b 0:5000 app:app
+
 # наполняем базу
 dbp:
 	python populate_database.py
