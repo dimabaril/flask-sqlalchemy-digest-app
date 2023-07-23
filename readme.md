@@ -88,7 +88,20 @@ docker run --name flask_test_app -it -p 5000:5000 dimabaril/flask_app
 
 ```zsh
 git clone git@github.com:dimabaril/flask_app.git
-cd flask_app
+cd flask-sqlalchemy-digest-app
+```
+
+* Создайте виртальное окружение и зайдите в него:
+
+```zsh
+python3 -m venv venv
+source venv/bin/activate
+```
+
+* Установите зависимости:
+
+```zsh
+pip install -r requirements.txt
 ```
 
 * Если хотите понаполнять базу то идём на <https://newsapi.org>, регистрируемся и где то здесь <https://newsapi.org/account> получаем API key (если вам лень регаться то я залил базу на гит ;)
@@ -113,8 +126,8 @@ make dbp
 flask  run
 либо
 make fr
-либо
-gunicorn -w 4 -b 0:5000 app:app
+либо (может работать и без пути, но надо быть аккуратным, бывает проблема что запускается гиникорн из другого места)
+venv/bin/gunicorn -w 4 -b 0:5000 app:app
 либо
 make frg
 ```
