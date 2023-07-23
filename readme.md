@@ -62,6 +62,7 @@ P.P.P.S. Вопросы задавать можно.
 * requests==2.31.0
 * loguru==0.7.0
 * python-dotenv==1.0.0
+* gunicorn==21.2.0
 * SQLite
 * Makefile
 * Black
@@ -112,6 +113,10 @@ make dbp
 flask  run
 либо
 make fr
+либо
+gunicorn -w 4 -b 0:5000 app:app
+либо
+make frg
 ```
 
 в этом месте работают все ссылки которые даны [здесь](#запуск)
