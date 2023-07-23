@@ -87,7 +87,7 @@ docker run --name flask_test_app -it -p 5000:5000 dimabaril/flask_app
 * Клонируйте репозиторий и перейдити в него:
 
 ```zsh
-git clone git@github.com:dimabaril/flask_app.git
+git clone https://github.com/dimabaril/flask-sqlalchemy-digest-app.git
 cd flask-sqlalchemy-digest-app
 ```
 
