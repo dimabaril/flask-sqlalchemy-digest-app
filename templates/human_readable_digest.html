@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digest for {{ digest_data.user_name }}</title>
+</head>
+
+<body>
+    <h1>Digest for {{ digest_data.user_name }}</h1>
+    <ul>
+        {% for post in digest_data.posts %}
+        <li>
+            <p>{{ post.content }}</p>
+            <p>Popularity: {{ post.popularity }}</p>
+            <p>Tags: {{ post.tags | join(", ") }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
