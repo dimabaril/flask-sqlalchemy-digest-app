@@ -1,10 +1,22 @@
 from flask import Flask, jsonify, redirect, render_template, url_for
+from flask_debugtoolbar import DebugToolbarExtension
+from sqlalchemy.orm import joinedload
 
 from config import Config
 from models import Digest, Post, Subscription, Tag, User, db
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# the toolbar is only enabled in debug mode:
+app.debug = True
+
+# set a 'SECRET_KEY' to enable the Flask session cookies
+app.config["SECRET_KEY"] = "<replace with a secret key>"
+app.config["SQLALCHEMY_RECORD_QUERIES"] = True
+
+toolbar = DebugToolbarExtension(app)
+
 db.init_app(app)
 
 
@@ -40,19 +52,21 @@ def generate_digest(user):
         .join(Tag.subscriptions)
         .filter(Subscription.user_id == user.id)
         .filter(Post.popularity >= 50)
+        .options(joinedload(Post.tags))  # Жадная загрузка тегов
         .all()
     )
 
     # Создание дайджеста
     digest = Digest(user_id=user.id)
     db.session.add(digest)
-    db.session.commit()
+    # db.session.commit()
 
     # Добавление отобранных постов в дайджест
-    for post in popular_posts:
-        digest.posts.append(post)
+    # for post in popular_posts:
+    #     digest.posts.append(post)
+    digest.posts = popular_posts
 
-    db.session.commit()
+    # db.session.commit()
 
     # Формируем данные для ответа
     digest_data = {
@@ -72,6 +86,7 @@ def generate_digest(user):
 
         digest_data["posts"].append(post_data)
 
+    db.session.commit()
     return digest_data
 
 
